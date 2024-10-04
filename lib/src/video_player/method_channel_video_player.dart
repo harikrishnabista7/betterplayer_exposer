@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:better_player/src/configuration/better_player_buffering_configuration.dart';
 import 'package:better_player/src/core/better_player_utils.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'video_player_platform_interface.dart';
@@ -422,6 +423,7 @@ class MethodChannelVideoPlayer extends VideoPlayerPlatform {
   Widget buildView(int? textureId) {
     if (defaultTargetPlatform == TargetPlatform.iOS) {
       return UiKitView(
+        hitTestBehavior: PlatformViewHitTestBehavior.transparent,
         viewType: 'com.jhomlala/better_player',
         creationParamsCodec: const StandardMessageCodec(),
         creationParams: {'textureId': textureId!},
