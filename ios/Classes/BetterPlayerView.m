@@ -2,24 +2,36 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// BetterPlayerView.m
 #import "BetterPlayerView.h"
 
-// BetterPlayerView.m
 @implementation BetterPlayerView
+
+// Getter for player, accessing playerView's player
 - (AVPlayer *)player {
-    return self.playerLayer.player;
+    return self.playerView.player;
 }
 
+// Setter for player, setting playerView's player
 - (void)setPlayer:(AVPlayer *)player {
-    self.playerLayer.player = player;
+    self.playerView.player = player;
 }
 
-// Override UIView method
-+ (Class)layerClass {
-    return [AVPlayerLayer class];
+// Custom init method
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialize playerView and add it as a subview
+        _playerView = [[CustomVideoPlayerView alloc] initWithFrame:self.bounds];
+        _playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [self addSubview:_playerView];
+    }
+    return self;
 }
 
-- (AVPlayerLayer *)playerLayer {
-    return (AVPlayerLayer *)self.layer;
+// If using init, call initWithFrame:
+- (instancetype)init {
+    return [self initWithFrame:CGRectZero];
 }
+
 @end
